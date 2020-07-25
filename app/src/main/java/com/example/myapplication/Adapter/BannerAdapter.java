@@ -1,6 +1,7 @@
 package com.example.myapplication.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
+import com.example.myapplication.Activity.DanhSachBaiHatActivity;
 import com.example.myapplication.Model.Quangcao;
 import com.example.myapplication.R;
 import com.squareup.picasso.Picasso;
@@ -46,10 +48,18 @@ public class BannerAdapter extends PagerAdapter {
         TextView txttilesongbanner = view.findViewById(R.id.textviewtilebannerbaihat);
         TextView txtnoidung = view.findViewById(R.id.textviewnoidung);
 
-        Picasso.get().load(arrayListbanner.get(position).getHinhanh()).into(imgbackgroundbanner);
-        Picasso.get().load(arrayListbanner.get(position).getHinhBaiHat()).into(imgsongbanner);
+        Picasso.with(context).load(arrayListbanner.get(position).getHinhanh()).into(imgbackgroundbanner);
+        Picasso.with(context).load(arrayListbanner.get(position).getHinhBaiHat()).into(imgsongbanner);
         txttilesongbanner.setText(arrayListbanner.get(position).getTenBaiHat());
         txtnoidung.setText(arrayListbanner.get(position).getNoidung());
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, DanhSachBaiHatActivity.class);
+                intent.putExtra("banner",arrayListbanner.get(position));
+                context.startActivity(intent);
+            }
+        });
 
         container.addView(view);
         return view;
