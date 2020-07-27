@@ -17,9 +17,11 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.myapplication.Adapter.DanhsachbaihatAdapter;
+import com.example.myapplication.Model.Album;
 import com.example.myapplication.Model.Baihat;
 import com.example.myapplication.Model.Playlist;
 import com.example.myapplication.Model.Quangcao;
+import com.example.myapplication.Model.TheLoai;
 import com.example.myapplication.R;
 import com.example.myapplication.Service.APIService;
 import com.example.myapplication.Service.DataService;
@@ -49,6 +51,9 @@ public class DanhSachBaiHatActivity extends AppCompatActivity {
     ArrayList<Baihat> mangbaihat;
     DanhsachbaihatAdapter danhsachbaihatAdapter;
     Playlist playlist;
+    TheLoai theLoai;
+    Album album;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +69,56 @@ public class DanhSachBaiHatActivity extends AppCompatActivity {
             setVaLueView(playlist.getTen(),playlist.getHinhPlaylist());
             GetDataPlaylist(playlist.getIdPlayList());
         }
+        if (theLoai != null && !theLoai.getTenTheLoai().equals("")){
+            setVaLueView(theLoai.getTenTheLoai(),theLoai.getHinhTheLoai());
+            GetDataTheLoai(theLoai.getIdTheLoai());
+        }
+        if (album !=null && !album.getTenAlbum().equals("")){
+            setVaLueView(album.getTenAlbum(),album.getHinhanhAlbum());
+            GetDataAlbum(album.getIdAlbum());
+        }
+
+    }
+
+    private void GetDataAlbum(String idAlbum) {
+        DataService dataService = APIService.getService();
+        Call<List<Baihat>> callback = dataService.GetDanhsachBaiHatTheoAlbum(idAlbum);
+        callback.enqueue(new Callback<List<Baihat>>() {
+            @Override
+            public void onResponse(Call<List<Baihat>> call, Response<List<Baihat>> response) {
+                mangbaihat = (ArrayList<Baihat>) response.body();
+                danhsachbaihatAdapter = new DanhsachbaihatAdapter(DanhSachBaiHatActivity.this,mangbaihat);
+                recyclerViewdanhsachbaihat.setLayoutManager(new LinearLayoutManager(DanhSachBaiHatActivity.this));
+                recyclerViewdanhsachbaihat.setAdapter(danhsachbaihatAdapter);
+            }
+
+            @Override
+            public void onFailure(Call<List<Baihat>> call, Throwable t) {
+
+            }
+        });
+    }
+
+
+    private void GetDataTheLoai(String idtheloai){
+        DataService dataService = APIService.getService();
+        Call<List<Baihat>> callback = dataService.GetDanhsachbaihattheotheloai(idtheloai);
+        callback.enqueue(new Callback<List<Baihat>>() {
+            @Override
+            public void onResponse(Call<List<Baihat>> call, Response<List<Baihat>> response) {
+                mangbaihat = (ArrayList<Baihat>) response.body();
+                danhsachbaihatAdapter = new DanhsachbaihatAdapter(DanhSachBaiHatActivity.this,mangbaihat);
+                recyclerViewdanhsachbaihat.setLayoutManager(new LinearLayoutManager(DanhSachBaiHatActivity.this));
+                recyclerViewdanhsachbaihat.setAdapter(danhsachbaihatAdapter);
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Baihat>> call, Throwable t) {
+
+            }
+        });
+
 
     }
 
@@ -154,6 +209,12 @@ public class DanhSachBaiHatActivity extends AppCompatActivity {
             }
             if (intent.hasExtra("itemplaylist")){
                 playlist = (Playlist) intent.getSerializableExtra("itemplaylist");
+            }
+            if (intent.hasExtra("idtheloai")){
+                 theLoai = (TheLoai) intent.getSerializableExtra("idtheloai");
+            }
+            if (intent.hasExtra("album")){
+                album = (Album) intent.getSerializableExtra("album");
             }
         }
     }

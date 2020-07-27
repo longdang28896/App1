@@ -11,7 +11,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.DanhSachBaiHatActivity"></activity>
+        <activity android:name=".Activity.DanhsachtatcaAlbumActivity"></activity>
+        <activity android:name=".Activity.DanhsachtheloaitheochudeActivity" />
+        <activity android:name=".Activity.AllChuDeActivity" />
+        <activity android:name=".Activity.AllPlaylistActivity" />
+        <activity android:name=".Activity.DanhSachBaiHatActivity" />
         <activity android:name=".Activity.MainActivity" />
         <activity android:name=".Activity.Splash_Screen">
             <intent-filter>
