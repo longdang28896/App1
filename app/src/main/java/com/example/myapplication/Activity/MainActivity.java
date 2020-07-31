@@ -30,16 +30,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void init() {
         MainViewPagerAdapter mainViewPagerAdapter = new MainViewPagerAdapter(getSupportFragmentManager());
-        mainViewPagerAdapter.addFragment(new Fragment_Trang_Chu(),"Trang Chu");
-        mainViewPagerAdapter.addFragment(new Fragment_Tim_Kiem(),"Tim Kiem");
-        mainViewPagerAdapter.addFragment(new Fragment_Play_List(),"Playlist");
-        mainViewPagerAdapter.addFragment(new Fragment_Favorite_List(),"Favorite");
+        mainViewPagerAdapter.addFragment(new Fragment_Trang_Chu(),"Trang Chủ");
+        mainViewPagerAdapter.addFragment(new Fragment_Tim_Kiem(),"Tìm Kiếm");
         viewPager.setAdapter(mainViewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.getTabAt(0).setIcon(R.drawable.trangchu);
         tabLayout.getTabAt(1).setIcon(R.drawable.search);
-        tabLayout.getTabAt(2).setIcon(R.drawable.songs);
-        tabLayout.getTabAt(3).setIcon(R.drawable.favorite1);
     }
 
     private void anhxa() {
